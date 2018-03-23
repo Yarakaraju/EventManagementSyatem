@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Notice Board</title>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+
+        <form th:action="@{/myWhiteBoard}" method="get">
+            <button class="btn btn-md btn-warning btn-block" type="Submit">Go To White Board</button>
+        </form>
+
+        <th:block layout:fragment="content">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">User Details</div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th> Name </th>
+                                <th> Email </th>
+                                <th> Reject </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${individualNoticeDetails}">
+                                <form action="#" th:action="@{'/noticeDetails/reject/' + ${item.getEmail()}}"
+                                      th:object="${item.getEmail()}" method="post" class="form-horizontal"
+                                      role="form">
+                                    <td th:text="${item.getName()}"> Name </td>
+                                    <td th:text="${item.getEmail()}"> Email </td>    
+                                    <td><input type="submit" name="remove" value="Reject" ></td>
+                                </form>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </th:block>
+    </body>
+</html>

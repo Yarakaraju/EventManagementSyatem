@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Notice Board</title>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+
+        <form th:action="@{/myWhiteBoard}" method="get">
+            <button class="btn btn-md btn-warning btn-block" type="Submit">Go To White Board</button>
+        </form>
+
+        <th:block layout:fragment="content">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">Notice Details</div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th> Number </th>
+                                <th> Title </th>
+                                <th> Description </th>
+                                <th>Write Your Message</th>
+                                <th> Submit </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <form action="#" th:action="@{'/enroleNotices/groupMessage/sendMessage/' + ${whiteBoard.Id}}"
+                                  th:object="${whiteBoard.Id}"  method="post" class="form-horizontal" role="form">
+                                <tr>
+                                    <td th:text="${whiteBoard.Id}"/> 
+                                    <td  th:text="${whiteBoard.itemTitle}"/>  
+                                    <td  th:text="${whiteBoard.itemDescription}"/> 
+                                 
+                                    <td>  <input type="text" style="height: 50px; width: 300px" name="groupMessage" id="groupMessage" placeholder="Message" class="form-control"/></td>
+                                    <td><input type="submit" name="Send" value="Send"></td>
+                                </tr>
+                            </form>
+
+
+                            <span th:utext="${successMessage}"></span>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </th:block>
+    </body>
+</html>
